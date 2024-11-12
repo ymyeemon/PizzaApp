@@ -2,6 +2,45 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
+const pizzaData = [ 
+  { 
+    name: "Focaccia", 
+    ingredients: "Bread with italian olive oil and rosemary", 
+    price: 6, 
+    photoName: "pizzas/focaccia.jpg", 
+  }, 
+  { 
+    name: "Pizza Margherita", 
+    ingredients: "Tomato and mozarella", 
+    price: 10, 
+    photoName: "pizzas/margherita.jpg", 
+  }, 
+  { 
+    name: "Pizza Spinaci", 
+    ingredients: "Tomato, mozarella, spinach, and ricotta cheese", 
+    price: 12, 
+    photoName: "pizzas/spinaci.jpg", 
+  }, 
+  { 
+    name: "Pizza Funghi", 
+    ingredients: "Tomato, mozarella, mushrooms, and onion", 
+    price: 12, 
+    photoName: "pizzas/funghi.jpg", 
+  }, 
+  { 
+    name: "Pizza Salamino", 
+    ingredients: "Tomato, mozarella, and pepperoni", 
+    price: 15, 
+    photoName: "pizzas/salamino.jpg", 
+  }, 
+  { 
+    name: "Pizza Prosciutto", 
+    ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese", 
+    price: 18, 
+    photoName: "pizzas/prosciutto.jpg", 
+  }, 
+]; 
+
 function Header() {
   return (
   <div className="title">
@@ -10,27 +49,32 @@ function Header() {
   );
 }
 
-// function Pizza() {
-//   return (
-//     <div>
-//       <img src="pizzas/spinaci.jpg" alt="Spinach Pizza" />
-//       <h3>Spinach Pizza</h3>
-//       <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-//       <p>10</p>
-//     </div>
-//   );
-// }
-
-function Pizza(props) {
-  return (
+const PizzaItem = ({ name, ingredients, price, photoName }) => { 
+  return ( 
     <div className="box">
-      <img className="img"src={props.img}/>
-      <h3 className="pizzah3">{props.name}</h3>
-      <p className="pizzap">{props.description}</p>
-      <p className="pizzap">{props.price}</p>
-    </div>
-  );
-}
+      <img className="img" src={photoName} alt={name}/> 
+      <h3 className="pizzah3">{name}</h3> 
+      <p className="pizzap">{ingredients}</p> 
+      <p className="pizzap">Price: ${price.toFixed(2)}</p> 
+    </div> 
+  ); 
+}; 
+
+function Pizza() { 
+  return ( 
+    <div> 
+      {pizzaData.map((pizza, index) => ( 
+        <PizzaItem 
+          key={index} 
+          name={pizza.name} 
+          ingredients={pizza.ingredients} 
+          price={pizza.price} 
+          photoName={pizza.photoName} 
+        /> 
+      ))} 
+    </div> 
+  ); 
+} 
 
 function Footer() {
     const hour = new Date().getHours();
@@ -58,12 +102,7 @@ function Menu() {
     <div className="menu">
       <h2>Our Menu</h2>
       <h3 className="menutext">Authetic Italian cuisine, all from our stone oven</h3>
-      <Pizza img="\pizzas\focaccia.jpg" name="Focaccia" description="Bread with italian olive oil and rosemary" price="Price: $6"/>
-      <Pizza img="\pizzas\margherita.jpg" name="Pizza Margherita" description="Tomato and mozarella" price="Price: $10"/>
-      <Pizza img="\pizzas\spinaci.jpg" name="Pizza Spinaci" description="Tomata, mozarella, spinach, and ricotta cheese" price="Price: $12"/>
-      <Pizza img="\pizzas\funghi.jpg" name="Pizza Funghi" description="Tomato, mozarella, mushrooms, and onion" price="Price: $12"/>
-      <Pizza img="\pizzas\salamino.jpg" name="Pizza Salamino" description="Tomato, mozarella, and pepperoni" price="Price: $15"/>
-      <Pizza img="\pizzas\prosciutto.jpg" name="Pizza Prosciutto" description="Tomato, mozarella, ham, aragula, and burrata cheese" price="Price: $18"/>
+      <Pizza />
     </div>
   );
 }
